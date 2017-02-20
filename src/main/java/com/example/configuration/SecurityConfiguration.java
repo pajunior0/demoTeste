@@ -45,16 +45,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http.
 			authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/login").permitAll()
-				.antMatchers("/registration").permitAll()
-				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-				.authenticated().and().csrf().disable().formLogin()
-				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/admin/home")
-				.usernameParameter("email")
-				.passwordParameter("password")
-				.and().logout()
+				.antMatchers("/")//Permite que a configuração do HttpSecurity seja apenas invocada ao corresponder ao padrão fornecido.
+					.permitAll()
+				.antMatchers("/login")//Permite que a configuração do HttpSecurity seja apenas invocada ao corresponder ao padrão fornecido.
+					.permitAll()
+				.antMatchers("/registration")//Permite que a configuração do HttpSecurity seja apenas invocada ao corresponder ao padrão fornecido.
+					.permitAll()
+				.antMatchers("/admin/**")//Permite que a configuração do HttpSecurity seja apenas invocada ao corresponder ao padrão fornecido.
+					.hasAuthority("ADMIN")
+						.anyRequest()
+				.authenticated()
+			.and()
+				.csrf()
+				.disable()
+				.formLogin()//Permite que os usuários se autentiquem com o login baseado em formulário
+					.loginPage("/login")
+						.failureUrl("/login?error=true")
+						.defaultSuccessUrl("/admin/home")
+				.usernameParameter("email")//paramentro de login(usuário)
+				.passwordParameter("password")//paramentro de senha
+			.and()
+				.logout()//fornece suporte ao logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/").and().exceptionHandling()
 				.accessDeniedPage("/access-denied");
