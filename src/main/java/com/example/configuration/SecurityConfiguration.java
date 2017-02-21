@@ -59,11 +59,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.csrf()
 				.disable()
 				.formLogin()//Permite que os usuários se autentiquem com o login baseado em formulário
-					.loginPage("/login")
-						.failureUrl("/login?error=true")
-						.defaultSuccessUrl("/admin/home")
-				.usernameParameter("email")//paramentro de login(usuário)
-				.passwordParameter("password")//paramentro de senha
+					.loginPage("/login")//request mapping da pagina de login
+						.failureUrl("/login?error=true")//redirecionamento em caso de erro
+						.defaultSuccessUrl("/admin/home")//redirecionamento em caso de sucesso
+				.usernameParameter("email")//paramentro usuário
+				.passwordParameter("password")//paramentro senha
 			.and()
 				.logout()//fornece suporte ao logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
