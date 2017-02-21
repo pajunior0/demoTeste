@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebMvcSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -61,9 +61,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.formLogin()//Permite que os usuários se autentiquem com o login baseado em formulário
 					.loginPage("/login")//request mapping da pagina de login
 						.failureUrl("/login?error=true")//redirecionamento em caso de erro
+						.usernameParameter("email")//paramentro usuário
+						.passwordParameter("password")//paramentro senha
 						.defaultSuccessUrl("/admin/home")//redirecionamento em caso de sucesso
-				.usernameParameter("email")//paramentro usuário
-				.passwordParameter("password")//paramentro senha
 			.and()
 				.logout()//fornece suporte ao logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
