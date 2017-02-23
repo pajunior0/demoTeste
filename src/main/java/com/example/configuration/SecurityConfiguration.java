@@ -17,8 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebMvcSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+//	@Autowired
+//	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
 	private DataSource dataSource;
@@ -36,8 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			jdbcAuthentication()
 				.usersByUsernameQuery(usersQuery)
 				.authoritiesByUsernameQuery(rolesQuery)
-				.dataSource(dataSource)
-				.passwordEncoder(bCryptPasswordEncoder);
+				.dataSource(dataSource);
+//				.passwordEncoder(bCryptPasswordEncoder);
 	}
 
 	@Override
